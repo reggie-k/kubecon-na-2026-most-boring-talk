@@ -5,9 +5,8 @@ source "$(dirname "$0")/lib.sh"
 require_cluster
 
 info "Installing Argo CD ${ARGOCD_VERSION} with Helm (chart ${ARGOCD_CHART_VERSION})"
-# Serve the UI over plain HTTP so port forwarding works without TLS warnings.
-helm_install_argocd --set 'configs.params.server\.insecure=true'
+helm_install_argocd -f "${ROOT_DIR}/scripts/clickops-values.yaml"
 
 wait_for_argocd
-start_port_forward
+wait_for_ui
 cli_login

@@ -36,5 +36,5 @@ kubectl -n argocd get applications.argoproj.io
 echo
 ok "Recovered in $(( $(date +%s) - start )) seconds"
 echo
-start_port_forward
+wait_for_ui
 cli_login

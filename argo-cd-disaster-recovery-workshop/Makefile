@@ -15,7 +15,7 @@ cluster: ## Create a kind cluster (NAME=primary|dr)
 install-argocd: ## ClickOps: install a plain Argo CD with kubectl
 	@scripts/install-argocd.sh
 
-ui: ## Restart the UI port forward and log in the CLI
+ui: ## Show the UI address and admin password, and log in the CLI
 	@scripts/ui.sh
 
 disaster: ## Destroy a cluster (NAME=primary|dr)

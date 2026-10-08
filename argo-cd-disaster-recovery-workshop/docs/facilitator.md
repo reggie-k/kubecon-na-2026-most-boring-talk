@@ -21,7 +21,8 @@
 
 | Symptom | Fix |
 | --- | --- |
-| UI not reachable | `make ui` restarts the port forward |
+| UI not reachable | Check the cluster was created with `make cluster`, which maps port 8080 into the cluster. Locally, check nothing else uses port 8080 |
+| `make cluster` says another cluster is still running | Only one cluster can run at a time, because each one uses port 8080. Run `make disaster NAME=<that cluster>` first |
 | `make bootstrap` says CHANGE_ME | Run `make configure` |
 | Apps stuck on `repository not found` | The fork is not public. Make it public; the workshop does not configure repository credentials |
 | Root app does not see a pushed change | Select **Refresh** on the root app, or wait 60 seconds |

@@ -9,10 +9,10 @@ make cluster NAME=primary
 make install-argocd
 ```
 
-The second command prints the admin password and logs the `argocd` CLI in. Open the **PORTS** tab in VS Code and open the forwarded address for port **8080**. Log in as `admin`.
+The second command prints the admin password and logs the `argocd` CLI in. Open http://localhost:8080. In Codespaces, open the **PORTS** tab and open the forwarded address for port **8080** instead. Log in as `admin`.
 
 > [!TIP]
-> If the UI stops responding, run `make ui` to restart the port forward.
+> Lost the password? Run `make ui` to print it again.
 
 ## 2. Create an app in the UI
 

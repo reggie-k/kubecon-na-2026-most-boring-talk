@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# (Re)starts the port forward to the Argo CD UI and logs in the CLI.
+# Checks the Argo CD UI is reachable, logs in the CLI and prints the admin password.
 source "$(dirname "$0")/lib.sh"
 require_cluster
-start_port_forward
+wait_for_ui
 cli_login

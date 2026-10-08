@@ -1,0 +1,9 @@
+# kind cluster used in every lab. Port 8080 on your machine (or Codespace) goes
+# straight to NodePort 30080 inside the cluster, where the Argo CD UI listens.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8080

@@ -1,0 +1,11 @@
+# The only settings the ClickOps install needs: make the UI reachable on
+# http://localhost:8080. Everything else is the chart's defaults.
+configs:
+  params:
+    # Serve the UI over plain HTTP, so there are no TLS warnings.
+    server.insecure: true
+server:
+  service:
+    # Exposed on localhost:8080 through the kind port mapping in scripts/kind-config.yaml.
+    type: NodePort
+    nodePortHttp: 30080

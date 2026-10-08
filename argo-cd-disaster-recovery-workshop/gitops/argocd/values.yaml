@@ -2,10 +2,15 @@
 # Argo CD's own settings live in Git, next to the apps it manages.
 configs:
   params:
-    # Serve the UI over plain HTTP so port forwarding works without TLS warnings.
+    # Serve the UI over plain HTTP, so there are no TLS warnings.
     server.insecure: true
   cm:
     ui.bannercontent: This Argo CD is defined in Git
     timeout.reconciliation: 60s
     # The chart adds up to 60s of random delay by default; turn it off so pushed changes show up within a minute.
     timeout.reconciliation.jitter: 0s
+server:
+  service:
+    # Exposed on localhost:8080 through the kind port mapping in scripts/kind-config.yaml.
+    type: NodePort
+    nodePortHttp: 30080
