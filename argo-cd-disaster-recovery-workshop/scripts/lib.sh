@@ -60,3 +60,13 @@ cli_login() {
   bold "Password:   ${pass}"
 }
 
+
+# helm_install_argocd installs (or upgrades) the Argo CD Helm chart.
+# Extra arguments are passed to helm, e.g. -f values.yaml.
+helm_install_argocd() {
+  helm upgrade --install argocd argo-cd \
+    --repo https://argoproj.github.io/argo-helm \
+    --version "${ARGOCD_CHART_VERSION}" \
+    --namespace argocd --create-namespace \
+    "$@" >/dev/null
+}

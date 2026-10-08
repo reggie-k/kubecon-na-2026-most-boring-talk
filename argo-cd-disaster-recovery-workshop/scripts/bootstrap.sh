@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # The whole disaster recovery runbook for the GitOps setup:
-#   1. install Argo CD (from Git)
+#   1. install Argo CD with Helm, using the values in Git
 #   2. apply the root Application (from Git)
 # Everything else is pulled from Git by Argo CD.
 source "$(dirname "$0")/lib.sh"
@@ -13,8 +13,8 @@ fi
 
 start=$(date +%s)
 
-bold "Step 1/2: install Argo CD, exactly as defined in gitops/argocd"
-kubectl apply -k gitops/argocd --server-side --force-conflicts >/dev/null
+bold "Step 1/2: install Argo CD with Helm, using gitops/argocd/values.yaml"
+helm_install_argocd -f gitops/argocd/values.yaml
 wait_for_argocd
 
 bold "Step 2/2: apply the root Application"

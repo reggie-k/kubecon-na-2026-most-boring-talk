@@ -4,7 +4,7 @@
 
 1. Fork this repository to your own GitHub account. The fork must be **public**: Argo CD reads it without credentials, and the workshop does not set any up.
 2. In your fork, select **Code** > **Codespaces** > **Create codespace on main**.
-3. Wait for the post-create script to finish. It installs `kind`, `kubectl`, the `argocd` CLI and `jq`.
+3. Wait for the post-create script to finish. It installs `kind`, `kubectl`, `helm`, the `argocd` CLI and `jq`.
 
 Check the tools:
 
@@ -12,6 +12,7 @@ Check the tools:
 docker ps
 kind version
 kubectl version --client
+helm version --short
 argocd version --client --short
 ```
 

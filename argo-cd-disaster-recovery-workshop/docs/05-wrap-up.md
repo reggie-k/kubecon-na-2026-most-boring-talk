@@ -5,7 +5,7 @@
 | | ClickOps | GitOps |
 | --- | --- | --- |
 | Source of truth | The cluster's etcd | Git |
-| Recovery runbook | "Remember everything" | `kubectl apply -k` + `kubectl apply -f` |
+| Recovery runbook | "Remember everything" | `helm install` + `kubectl apply -f` |
 | Audit trail | None | `git log` |
 | Drift from manual changes | Silent and permanent | Reverted by self-heal |
 | Recovery time | Depends on how much you remember | Minutes |
@@ -22,8 +22,8 @@ GitOps recovers your *desired state*. Plan for these separately:
 
 ## Good practices
 
-- Manage Argo CD with Argo CD (`gitops/apps/argocd.yaml`), so upgrades and settings changes go through pull requests.
-- Pin the Argo CD version in Git, as `gitops/argocd/kustomization.yaml` does.
+- Keep Argo CD's Helm values in Git, and pin the chart version, as this workshop does in `scripts/versions.env`.
+- As a next step, let Argo CD manage its own Helm release, so upgrades and settings changes also go through pull requests.
 - Use `argocd admin export` as an extra backup, not as your recovery plan.
 - Do not add a cascading-delete finalizer to the root app. Deleting it by mistake would then delete every app it manages.
 - Rehearse disaster recovery: a game day like this one is the only way to know the runbook works.

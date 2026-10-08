@@ -10,7 +10,7 @@ In this workshop you run the same Argo CD setup twice, then destroy the cluster 
 ```mermaid
 flowchart LR
   subgraph Git["Git (this repo)"]
-    A[gitops/argocd<br/>Argo CD + settings]
+    A[gitops/argocd/values.yaml<br/>Argo CD settings]
     B[gitops/bootstrap/root.yaml]
     C[gitops/apps/*<br/>projects, apps, appsets]
   end
@@ -19,7 +19,7 @@ flowchart LR
     E[root app]
     F[all other apps]
   end
-  A -- "kubectl apply -k" --> D
+  A -- "helm install" --> D
   B -- "kubectl apply -f" --> E
   E -- "Argo CD syncs" --> F
   C -. read by .-> E
@@ -49,7 +49,7 @@ Facilitators: see [docs/facilitator.md](docs/facilitator.md).
 ```text
 .devcontainer/          Codespaces definition (Docker, kind, kubectl, argocd CLI)
 gitops/
-  argocd/               Argo CD itself, plus its settings, as a Kustomize overlay
+  argocd/values.yaml    Helm values for Argo CD, including its settings
   bootstrap/root.yaml   The root ("app of apps") Application, the only thing applied by hand
   apps/                 Every project, Application and ApplicationSet the root app manages
 scripts/                Helpers behind the make targets

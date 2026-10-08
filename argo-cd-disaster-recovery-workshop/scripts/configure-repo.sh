@@ -21,9 +21,13 @@ if [[ -z "${files}" ]]; then
   exit 0
 fi
 
-info "Pointing the GitOps manifests at ${URL}"
+# Argo CD paths are relative to the repository root. If the workshop lives in a
+# subfolder of the repository, prefix the paths of our own manifests with it.
+PREFIX="$(git rev-parse --show-prefix)"
+
+info "Pointing the GitOps manifests at ${URL}${PREFIX:+ (folder ${PREFIX})}"
 for f in ${files}; do
-  perl -pi -e "s#\Q${PLACEHOLDER}\E#${URL}#g" "${f}"
+  perl -pi -e "s#\Q${PLACEHOLDER}\E#${URL}#g; s#^(\s*path:\s*)gitops/#\${1}${PREFIX}gitops/#" "${f}"
   echo "  updated ${f}"
 done
 

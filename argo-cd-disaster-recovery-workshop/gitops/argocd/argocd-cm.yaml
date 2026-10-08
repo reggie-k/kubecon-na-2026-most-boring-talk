@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: argocd-cm
-data:
-  ui.bannercontent: This Argo CD is defined in Git
-  timeout.reconciliation: 60s

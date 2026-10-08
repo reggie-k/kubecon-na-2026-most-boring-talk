@@ -4,11 +4,9 @@ The same setup again, but this time it is declared in Git. Take a few minutes to
 
 | File | What it replaces from Lab 1 |
 | --- | --- |
-| `gitops/argocd/kustomization.yaml` | `kubectl apply -f install.yaml` |
-| `gitops/argocd/argocd-cm.yaml` | Nothing. Argo CD's own settings are in Git too |
+| `gitops/argocd/values.yaml` | The default Helm install. Argo CD's own settings are in Git too |
 | `gitops/apps/guestbook.yaml` | Your **+ New App** form |
 | `gitops/apps/helm-guestbook.yaml`, `kustomize-guestbook.yaml` | Your `argocd app create` commands |
-| `gitops/apps/argocd.yaml` | Nothing. Argo CD now manages its own installation and settings |
 | `gitops/apps/guestbook-envs-appset.yaml` | Nothing. ApplicationSets cannot be created in the UI |
 | `gitops/bootstrap/root.yaml` | The single Application that creates all the others |
 
@@ -22,7 +20,8 @@ make bootstrap
 `make bootstrap` runs two commands. Open `scripts/bootstrap.sh` to see them:
 
 ```bash
-kubectl apply -k gitops/argocd --server-side --force-conflicts
+helm upgrade --install argocd argo-cd --repo https://argoproj.github.io/argo-helm \
+  --version 10.10.1 --namespace argocd --create-namespace -f gitops/argocd/values.yaml
 kubectl apply -f gitops/bootstrap/root.yaml
 ```
 

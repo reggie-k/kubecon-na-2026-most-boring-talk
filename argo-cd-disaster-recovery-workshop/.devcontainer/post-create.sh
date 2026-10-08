@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Installs the CLIs the workshop needs on top of the devcontainer features.
+set -euo pipefail
+
+source "$(dirname "$0")/../scripts/versions.env"
+
+ARCH="$(dpkg --print-architecture)" # amd64 or arm64
+
+echo "==> Installing jq"
+sudo apt-get update -qq && sudo apt-get install -y -qq jq >/dev/null
+
+echo "==> Installing kind ${KIND_VERSION}"
+curl -fsSLo /tmp/kind "https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION}/kind-linux-${ARCH}"
+sudo install -m 0755 /tmp/kind /usr/local/bin/kind
+
+echo "==> Installing argocd CLI ${ARGOCD_VERSION}"
+curl -fsSLo /tmp/argocd "https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-${ARCH}"
+sudo install -m 0755 /tmp/argocd /usr/local/bin/argocd
+
+echo "==> Tool versions"
+kind version
+kubectl version --client
+helm version --short
+argocd version --client --short
+jq --version
+
+echo
+echo "All set. Open docs/00-setup.md to start the workshop."
